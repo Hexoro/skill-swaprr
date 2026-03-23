@@ -269,9 +269,11 @@ export type Database = {
           created_at: string
           description: string
           id: string
+          reward: number | null
           severity: string
           sp_reward: number | null
           status: string
+          submitted_by: string | null
           title: string
           user_id: string | null
         }
@@ -280,9 +282,11 @@ export type Database = {
           created_at?: string
           description?: string
           id?: string
+          reward?: number | null
           severity?: string
           sp_reward?: number | null
           status?: string
+          submitted_by?: string | null
           title?: string
           user_id?: string | null
         }
@@ -291,9 +295,11 @@ export type Database = {
           created_at?: string
           description?: string
           id?: string
+          reward?: number | null
           severity?: string
           sp_reward?: number | null
           status?: string
+          submitted_by?: string | null
           title?: string
           user_id?: string | null
         }
@@ -586,10 +592,24 @@ export type Database = {
             referencedColumns: ["user_id"]
           },
           {
+            foreignKeyName: "disputes_filed_against_profiles_fkey"
+            columns: ["filed_against"]
+            isOneToOne: false
+            referencedRelation: "public_profiles"
+            referencedColumns: ["user_id"]
+          },
+          {
             foreignKeyName: "disputes_filed_by_profiles_fkey"
             columns: ["filed_by"]
             isOneToOne: false
             referencedRelation: "profiles"
+            referencedColumns: ["user_id"]
+          },
+          {
+            foreignKeyName: "disputes_filed_by_profiles_fkey"
+            columns: ["filed_by"]
+            isOneToOne: false
+            referencedRelation: "public_profiles"
             referencedColumns: ["user_id"]
           },
         ]
@@ -626,6 +646,44 @@ export type Database = {
           updated_at?: string
         }
         Relationships: []
+      }
+      enterprise_candidates: {
+        Row: {
+          account_id: string | null
+          created_at: string | null
+          id: string
+          name: string
+          skills: string[] | null
+          status: string | null
+          user_id: string | null
+        }
+        Insert: {
+          account_id?: string | null
+          created_at?: string | null
+          id?: string
+          name?: string
+          skills?: string[] | null
+          status?: string | null
+          user_id?: string | null
+        }
+        Update: {
+          account_id?: string | null
+          created_at?: string | null
+          id?: string
+          name?: string
+          skills?: string[] | null
+          status?: string | null
+          user_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "enterprise_candidates_account_id_fkey"
+            columns: ["account_id"]
+            isOneToOne: false
+            referencedRelation: "enterprise_accounts"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       enterprise_consultations: {
         Row: {
@@ -828,18 +886,21 @@ export type Database = {
           event_id: string
           id: string
           registered_at: string
+          status: string | null
           user_id: string
         }
         Insert: {
           event_id: string
           id?: string
           registered_at?: string
+          status?: string | null
           user_id: string
         }
         Update: {
           event_id?: string
           id?: string
           registered_at?: string
+          status?: string | null
           user_id?: string
         }
         Relationships: [
@@ -856,11 +917,20 @@ export type Database = {
         Row: {
           address: string
           background_image_url: string
+          category: string | null
           created_by: string
           creator: string
           date: string
           description: string
+          event_date: string | null
           id: string
+          image_url: string | null
+          location: string | null
+          max_spots: number | null
+          organizer_id: string | null
+          organizer_name: string | null
+          spots_filled: number | null
+          status: string | null
           target_date: string
           time: string
           title: string
@@ -868,11 +938,20 @@ export type Database = {
         Insert: {
           address: string
           background_image_url: string
+          category?: string | null
           created_by?: string
           creator: string
           date: string
           description: string
+          event_date?: string | null
           id?: string
+          image_url?: string | null
+          location?: string | null
+          max_spots?: number | null
+          organizer_id?: string | null
+          organizer_name?: string | null
+          spots_filled?: number | null
+          status?: string | null
           target_date: string
           time: string
           title: string
@@ -880,11 +959,20 @@ export type Database = {
         Update: {
           address?: string
           background_image_url?: string
+          category?: string | null
           created_by?: string
           creator?: string
           date?: string
           description?: string
+          event_date?: string | null
           id?: string
+          image_url?: string | null
+          location?: string | null
+          max_spots?: number | null
+          organizer_id?: string | null
+          organizer_name?: string | null
+          spots_filled?: number | null
+          status?: string | null
           target_date?: string
           time?: string
           title?: string
@@ -1391,6 +1479,13 @@ export type Database = {
             referencedRelation: "profiles"
             referencedColumns: ["user_id"]
           },
+          {
+            foreignKeyName: "guild_members_user_id_profiles_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "public_profiles"
+            referencedColumns: ["user_id"]
+          },
         ]
       }
       guild_projects: {
@@ -1515,6 +1610,7 @@ export type Database = {
           created_at: string | null
           created_by: string
           description: string | null
+          guild_sections: Json | null
           id: string
           is_public: boolean | null
           level: number | null
@@ -1532,6 +1628,7 @@ export type Database = {
           created_at?: string | null
           created_by: string
           description?: string | null
+          guild_sections?: Json | null
           id?: string
           is_public?: boolean | null
           level?: number | null
@@ -1549,6 +1646,7 @@ export type Database = {
           created_at?: string | null
           created_by?: string
           description?: string | null
+          guild_sections?: Json | null
           id?: string
           is_public?: boolean | null
           level?: number | null
@@ -1559,6 +1657,33 @@ export type Database = {
           treasury_sp?: number | null
           updated_at?: string | null
           xp?: number | null
+        }
+        Relationships: []
+      }
+      help_articles: {
+        Row: {
+          category: string | null
+          content: string
+          created_at: string | null
+          id: string
+          slug: string | null
+          title: string
+        }
+        Insert: {
+          category?: string | null
+          content?: string
+          created_at?: string | null
+          id?: string
+          slug?: string | null
+          title: string
+        }
+        Update: {
+          category?: string | null
+          content?: string
+          created_at?: string | null
+          id?: string
+          slug?: string | null
+          title?: string
         }
         Relationships: []
       }
@@ -1624,18 +1749,21 @@ export type Database = {
           assigned_at: string | null
           dispute_id: string
           id: string
+          status: string | null
           user_id: string
         }
         Insert: {
           assigned_at?: string | null
           dispute_id: string
           id?: string
+          status?: string | null
           user_id: string
         }
         Update: {
           assigned_at?: string | null
           dispute_id?: string
           id?: string
+          status?: string | null
           user_id?: string
         }
         Relationships: [
@@ -1742,6 +1870,8 @@ export type Database = {
           is_subscription: boolean | null
           max_participants: number | null
           max_revisions: number | null
+          points: number | null
+          price: number | null
           proposal_count: number | null
           rating: number | null
           requirements: string[] | null
@@ -1760,6 +1890,7 @@ export type Database = {
           updated_at: string | null
           user_id: string
           view_count: number | null
+          views: number | null
         }
         Insert: {
           auction_config?: Json | null
@@ -1784,6 +1915,8 @@ export type Database = {
           is_subscription?: boolean | null
           max_participants?: number | null
           max_revisions?: number | null
+          points?: number | null
+          price?: number | null
           proposal_count?: number | null
           rating?: number | null
           requirements?: string[] | null
@@ -1802,6 +1935,7 @@ export type Database = {
           updated_at?: string | null
           user_id: string
           view_count?: number | null
+          views?: number | null
         }
         Update: {
           auction_config?: Json | null
@@ -1826,6 +1960,8 @@ export type Database = {
           is_subscription?: boolean | null
           max_participants?: number | null
           max_revisions?: number | null
+          points?: number | null
+          price?: number | null
           proposal_count?: number | null
           rating?: number | null
           requirements?: string[] | null
@@ -1844,6 +1980,7 @@ export type Database = {
           updated_at?: string | null
           user_id?: string
           view_count?: number | null
+          views?: number | null
         }
         Relationships: [
           {
@@ -1851,6 +1988,13 @@ export type Database = {
             columns: ["user_id"]
             isOneToOne: false
             referencedRelation: "profiles"
+            referencedColumns: ["user_id"]
+          },
+          {
+            foreignKeyName: "listings_user_id_profiles_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "public_profiles"
             referencedColumns: ["user_id"]
           },
         ]
@@ -1910,6 +2054,7 @@ export type Database = {
         Row: {
           created_at: string | null
           duration: number | null
+          duration_seconds: number | null
           id: string
           page: string
           user_id: string | null
@@ -1917,6 +2062,7 @@ export type Database = {
         Insert: {
           created_at?: string | null
           duration?: number | null
+          duration_seconds?: number | null
           id?: string
           page: string
           user_id?: string | null
@@ -1924,6 +2070,7 @@ export type Database = {
         Update: {
           created_at?: string | null
           duration?: number | null
+          duration_seconds?: number | null
           id?: string
           page?: string
           user_id?: string | null
@@ -1959,10 +2106,12 @@ export type Database = {
           availability: string | null
           avatar_emoji: string | null
           avatar_url: string | null
+          badges: Json | null
           bio: string | null
           certificates: Json | null
           created_at: string
           display_name: string | null
+          display_theme: string | null
           education_history: Json | null
           elo: number
           email: string
@@ -2004,10 +2153,12 @@ export type Database = {
           availability?: string | null
           avatar_emoji?: string | null
           avatar_url?: string | null
+          badges?: Json | null
           bio?: string | null
           certificates?: Json | null
           created_at?: string
           display_name?: string | null
+          display_theme?: string | null
           education_history?: Json | null
           elo?: number
           email?: string
@@ -2049,10 +2200,12 @@ export type Database = {
           availability?: string | null
           avatar_emoji?: string | null
           avatar_url?: string | null
+          badges?: Json | null
           bio?: string | null
           certificates?: Json | null
           created_at?: string
           display_name?: string | null
+          display_theme?: string | null
           education_history?: Json | null
           elo?: number
           email?: string
@@ -2261,6 +2414,68 @@ export type Database = {
           post_id?: string
           post_type?: string
           user_id?: string
+        }
+        Relationships: []
+      }
+      service_incidents: {
+        Row: {
+          created_at: string | null
+          description: string | null
+          id: string
+          service_id: string | null
+          severity: string | null
+          status: string | null
+          title: string
+        }
+        Insert: {
+          created_at?: string | null
+          description?: string | null
+          id?: string
+          service_id?: string | null
+          severity?: string | null
+          status?: string | null
+          title: string
+        }
+        Update: {
+          created_at?: string | null
+          description?: string | null
+          id?: string
+          service_id?: string | null
+          severity?: string | null
+          status?: string | null
+          title?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "service_incidents_service_id_fkey"
+            columns: ["service_id"]
+            isOneToOne: false
+            referencedRelation: "service_status"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      service_status: {
+        Row: {
+          created_at: string | null
+          id: string
+          service_name: string
+          status: string | null
+          uptime: number | null
+        }
+        Insert: {
+          created_at?: string | null
+          id?: string
+          service_name: string
+          status?: string | null
+          uptime?: number | null
+        }
+        Update: {
+          created_at?: string | null
+          id?: string
+          service_name?: string
+          status?: string | null
+          uptime?: number | null
         }
         Relationships: []
       }
@@ -2499,6 +2714,13 @@ export type Database = {
             referencedRelation: "profiles"
             referencedColumns: ["user_id"]
           },
+          {
+            foreignKeyName: "user_achievements_user_id_profiles_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "public_profiles"
+            referencedColumns: ["user_id"]
+          },
         ]
       }
       user_badges: {
@@ -2533,6 +2755,13 @@ export type Database = {
             columns: ["user_id"]
             isOneToOne: false
             referencedRelation: "profiles"
+            referencedColumns: ["user_id"]
+          },
+          {
+            foreignKeyName: "user_badges_user_id_profiles_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "public_profiles"
             referencedColumns: ["user_id"]
           },
         ]
@@ -2872,7 +3101,124 @@ export type Database = {
       }
     }
     Views: {
-      [_ in never]: never
+      leaderboard_achievements: {
+        Row: {
+          achievement_description: string | null
+          achievement_icon: string | null
+          achievement_id: string | null
+          achievement_name: string | null
+          completed: boolean | null
+          completed_at: string | null
+          user_id: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "user_achievements_achievement_id_fkey"
+            columns: ["achievement_id"]
+            isOneToOne: false
+            referencedRelation: "achievements"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "user_achievements_user_id_profiles_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["user_id"]
+          },
+          {
+            foreignKeyName: "user_achievements_user_id_profiles_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "public_profiles"
+            referencedColumns: ["user_id"]
+          },
+        ]
+      }
+      public_profiles: {
+        Row: {
+          availability: string | null
+          avatar_emoji: string | null
+          avatar_url: string | null
+          badges: Json | null
+          bio: string | null
+          certificates: Json | null
+          created_at: string | null
+          display_name: string | null
+          elo: number | null
+          full_name: string | null
+          hourly_rate: string | null
+          interests: string[] | null
+          location: string | null
+          needs: string[] | null
+          portfolio_items: Json | null
+          response_time: string | null
+          skill_levels: Json | null
+          skills: string[] | null
+          slogan: string | null
+          sp: number | null
+          streak_days: number | null
+          tier: string | null
+          total_gigs_completed: number | null
+          university: string | null
+          user_id: string | null
+        }
+        Insert: {
+          availability?: string | null
+          avatar_emoji?: string | null
+          avatar_url?: string | null
+          badges?: Json | null
+          bio?: string | null
+          certificates?: Json | null
+          created_at?: string | null
+          display_name?: string | null
+          elo?: number | null
+          full_name?: string | null
+          hourly_rate?: string | null
+          interests?: string[] | null
+          location?: string | null
+          needs?: string[] | null
+          portfolio_items?: Json | null
+          response_time?: string | null
+          skill_levels?: Json | null
+          skills?: string[] | null
+          slogan?: string | null
+          sp?: number | null
+          streak_days?: number | null
+          tier?: string | null
+          total_gigs_completed?: number | null
+          university?: string | null
+          user_id?: string | null
+        }
+        Update: {
+          availability?: string | null
+          avatar_emoji?: string | null
+          avatar_url?: string | null
+          badges?: Json | null
+          bio?: string | null
+          certificates?: Json | null
+          created_at?: string | null
+          display_name?: string | null
+          elo?: number | null
+          full_name?: string | null
+          hourly_rate?: string | null
+          interests?: string[] | null
+          location?: string | null
+          needs?: string[] | null
+          portfolio_items?: Json | null
+          response_time?: string | null
+          skill_levels?: Json | null
+          skills?: string[] | null
+          slogan?: string | null
+          sp?: number | null
+          streak_days?: number | null
+          tier?: string | null
+          total_gigs_completed?: number | null
+          university?: string | null
+          user_id?: string | null
+        }
+        Relationships: []
+      }
     }
     Functions: {
       has_role: {
