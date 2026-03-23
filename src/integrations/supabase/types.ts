@@ -200,6 +200,173 @@ export type Database = {
         }
         Relationships: []
       }
+      case_comments: {
+        Row: {
+          content: string
+          created_at: string | null
+          dispute_id: string
+          id: string
+          user_id: string
+        }
+        Insert: {
+          content: string
+          created_at?: string | null
+          dispute_id: string
+          id?: string
+          user_id: string
+        }
+        Update: {
+          content?: string
+          created_at?: string | null
+          dispute_id?: string
+          id?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "case_comments_dispute_id_fkey"
+            columns: ["dispute_id"]
+            isOneToOne: false
+            referencedRelation: "disputes"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      case_evidence: {
+        Row: {
+          content: string
+          created_at: string | null
+          dispute_id: string
+          file_url: string | null
+          id: string
+          submitted_by: string
+          type: string | null
+        }
+        Insert: {
+          content: string
+          created_at?: string | null
+          dispute_id: string
+          file_url?: string | null
+          id?: string
+          submitted_by: string
+          type?: string | null
+        }
+        Update: {
+          content?: string
+          created_at?: string | null
+          dispute_id?: string
+          file_url?: string | null
+          id?: string
+          submitted_by?: string
+          type?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "case_evidence_dispute_id_fkey"
+            columns: ["dispute_id"]
+            isOneToOne: false
+            referencedRelation: "disputes"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      disputes: {
+        Row: {
+          created_at: string | null
+          description: string
+          escrow_id: string | null
+          filed_against: string
+          filed_by: string
+          id: string
+          status: string | null
+          title: string
+          updated_at: string | null
+          verdict: string | null
+        }
+        Insert: {
+          created_at?: string | null
+          description: string
+          escrow_id?: string | null
+          filed_against: string
+          filed_by: string
+          id?: string
+          status?: string | null
+          title: string
+          updated_at?: string | null
+          verdict?: string | null
+        }
+        Update: {
+          created_at?: string | null
+          description?: string
+          escrow_id?: string | null
+          filed_against?: string
+          filed_by?: string
+          id?: string
+          status?: string | null
+          title?: string
+          updated_at?: string | null
+          verdict?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "disputes_escrow_id_fkey"
+            columns: ["escrow_id"]
+            isOneToOne: false
+            referencedRelation: "escrow_contracts"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      escrow_contracts: {
+        Row: {
+          buyer_id: string | null
+          created_at: string | null
+          id: string
+          listing_id: string | null
+          released_sp: number | null
+          seller_id: string | null
+          status: string | null
+          terms: Json | null
+          total_sp: number
+          updated_at: string | null
+          workspace_id: string | null
+        }
+        Insert: {
+          buyer_id?: string | null
+          created_at?: string | null
+          id?: string
+          listing_id?: string | null
+          released_sp?: number | null
+          seller_id?: string | null
+          status?: string | null
+          terms?: Json | null
+          total_sp?: number
+          updated_at?: string | null
+          workspace_id?: string | null
+        }
+        Update: {
+          buyer_id?: string | null
+          created_at?: string | null
+          id?: string
+          listing_id?: string | null
+          released_sp?: number | null
+          seller_id?: string | null
+          status?: string | null
+          terms?: Json | null
+          total_sp?: number
+          updated_at?: string | null
+          workspace_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "escrow_contracts_listing_id_fkey"
+            columns: ["listing_id"]
+            isOneToOne: false
+            referencedRelation: "listings"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       event_registrations: {
         Row: {
           event_id: string
@@ -459,6 +626,199 @@ export type Database = {
           },
         ]
       }
+      jury_assignments: {
+        Row: {
+          assigned_at: string | null
+          dispute_id: string
+          id: string
+          user_id: string
+        }
+        Insert: {
+          assigned_at?: string | null
+          dispute_id: string
+          id?: string
+          user_id: string
+        }
+        Update: {
+          assigned_at?: string | null
+          dispute_id?: string
+          id?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "jury_assignments_dispute_id_fkey"
+            columns: ["dispute_id"]
+            isOneToOne: false
+            referencedRelation: "disputes"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      jury_votes: {
+        Row: {
+          created_at: string | null
+          dispute_id: string
+          id: string
+          reasoning: string | null
+          user_id: string
+          vote: string
+        }
+        Insert: {
+          created_at?: string | null
+          dispute_id: string
+          id?: string
+          reasoning?: string | null
+          user_id: string
+          vote: string
+        }
+        Update: {
+          created_at?: string | null
+          dispute_id?: string
+          id?: string
+          reasoning?: string | null
+          user_id?: string
+          vote?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "jury_votes_dispute_id_fkey"
+            columns: ["dispute_id"]
+            isOneToOne: false
+            referencedRelation: "disputes"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      listings: {
+        Row: {
+          auction_config: Json | null
+          bid_count: number | null
+          category: string | null
+          completed_swaps: number | null
+          conditions: Json | null
+          contest_config: Json | null
+          created_at: string | null
+          current_bid: number | null
+          current_participants: number | null
+          delivery_time: string | null
+          description: string | null
+          difficulty: string | null
+          ends_at: string | null
+          flash_config: Json | null
+          format: string
+          fusion_skills: string[] | null
+          gig_faq: Json | null
+          id: string
+          images: string[] | null
+          is_subscription: boolean | null
+          max_participants: number | null
+          max_revisions: number | null
+          proposal_count: number | null
+          rating: number | null
+          requirements: string[] | null
+          review_count: number | null
+          revision_cost_sp: number | null
+          roles_needed: Json | null
+          skills_offered: string[] | null
+          skills_wanted: string[] | null
+          sp_price: number | null
+          status: string | null
+          subscription_interval: string | null
+          tags: string[] | null
+          thumbnail_url: string | null
+          tiers: Json | null
+          title: string
+          updated_at: string | null
+          user_id: string
+          view_count: number | null
+        }
+        Insert: {
+          auction_config?: Json | null
+          bid_count?: number | null
+          category?: string | null
+          completed_swaps?: number | null
+          conditions?: Json | null
+          contest_config?: Json | null
+          created_at?: string | null
+          current_bid?: number | null
+          current_participants?: number | null
+          delivery_time?: string | null
+          description?: string | null
+          difficulty?: string | null
+          ends_at?: string | null
+          flash_config?: Json | null
+          format?: string
+          fusion_skills?: string[] | null
+          gig_faq?: Json | null
+          id?: string
+          images?: string[] | null
+          is_subscription?: boolean | null
+          max_participants?: number | null
+          max_revisions?: number | null
+          proposal_count?: number | null
+          rating?: number | null
+          requirements?: string[] | null
+          review_count?: number | null
+          revision_cost_sp?: number | null
+          roles_needed?: Json | null
+          skills_offered?: string[] | null
+          skills_wanted?: string[] | null
+          sp_price?: number | null
+          status?: string | null
+          subscription_interval?: string | null
+          tags?: string[] | null
+          thumbnail_url?: string | null
+          tiers?: Json | null
+          title: string
+          updated_at?: string | null
+          user_id: string
+          view_count?: number | null
+        }
+        Update: {
+          auction_config?: Json | null
+          bid_count?: number | null
+          category?: string | null
+          completed_swaps?: number | null
+          conditions?: Json | null
+          contest_config?: Json | null
+          created_at?: string | null
+          current_bid?: number | null
+          current_participants?: number | null
+          delivery_time?: string | null
+          description?: string | null
+          difficulty?: string | null
+          ends_at?: string | null
+          flash_config?: Json | null
+          format?: string
+          fusion_skills?: string[] | null
+          gig_faq?: Json | null
+          id?: string
+          images?: string[] | null
+          is_subscription?: boolean | null
+          max_participants?: number | null
+          max_revisions?: number | null
+          proposal_count?: number | null
+          rating?: number | null
+          requirements?: string[] | null
+          review_count?: number | null
+          revision_cost_sp?: number | null
+          roles_needed?: Json | null
+          skills_offered?: string[] | null
+          skills_wanted?: string[] | null
+          sp_price?: number | null
+          status?: string | null
+          subscription_interval?: string | null
+          tags?: string[] | null
+          thumbnail_url?: string | null
+          tiers?: Json | null
+          title?: string
+          updated_at?: string | null
+          user_id?: string
+          view_count?: number | null
+        }
+        Relationships: []
+      }
       profiles: {
         Row: {
           availability: string | null
@@ -594,6 +954,36 @@ export type Database = {
           user_id?: string
           work_history?: Json | null
           youtube_url?: string | null
+        }
+        Relationships: []
+      }
+      sp_transactions: {
+        Row: {
+          amount: number
+          created_at: string | null
+          description: string | null
+          id: string
+          reference_id: string | null
+          type: string
+          user_id: string | null
+        }
+        Insert: {
+          amount: number
+          created_at?: string | null
+          description?: string | null
+          id?: string
+          reference_id?: string | null
+          type: string
+          user_id?: string | null
+        }
+        Update: {
+          amount?: number
+          created_at?: string | null
+          description?: string | null
+          id?: string
+          reference_id?: string | null
+          type?: string
+          user_id?: string | null
         }
         Relationships: []
       }
