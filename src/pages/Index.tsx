@@ -1,7 +1,7 @@
-import HomePage from "@/features/home/HomePage";
+import { EventDetailPage } from '@/components/EventDetailPage';
 
 const Index = () => {
-  return <HomePage />;
+  return <EventDetailPage />;
 };
 
 export default Index;
