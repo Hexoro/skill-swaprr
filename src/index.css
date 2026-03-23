@@ -1,0 +1,306 @@
+@import url('https://api.fontshare.com/v2/css?f[]=satoshi@300,400,500,600,700,800,900&display=swap');
+@import url('https://api.fontshare.com/v2/css?f[]=general-sans@300,400,500,600,700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 4%;
+    --foreground: 0 0% 100%;
+
+    --card: 0 0% 6.7%;
+    --card-foreground: 0 0% 100%;
+
+    --popover: 0 0% 6.7%;
+    --popover-foreground: 0 0% 100%;
+
+    --primary: 0 0% 100%;
+    --primary-foreground: 0 0% 4%;
+
+    --secondary: 0 0% 10.2%;
+    --secondary-foreground: 0 0% 75.3%;
+
+    --muted: 0 0% 10.2%;
+    --muted-foreground: 0 0% 75.3%;
+
+    --accent: 0 0% 14%;
+    --accent-foreground: 0 0% 89.8%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 0 0% 16%;
+    --input: 0 0% 16%;
+    --ring: 0 0% 75.3%;
+
+    --radius: 0.5rem;
+
+    --silver: 0 0% 75.3%;
+    --silver-accent: 0 0% 89.8%;
+    --skill-green: 160 84% 39.4%;
+    --alert-red: 0 84.2% 60.2%;
+    --badge-gold: 38 92.1% 50.2%;
+    --court-blue: 217 91.2% 59.8%;
+
+    --surface-1: 0 0% 6.7%;
+    --surface-2: 0 0% 10.2%;
+    --surface-3: 0 0% 14%;
+
+    --sidebar-background: 0 0% 4%;
+    --sidebar-foreground: 0 0% 75.3%;
+    --sidebar-primary: 0 0% 100%;
+    --sidebar-primary-foreground: 0 0% 4%;
+    --sidebar-accent: 0 0% 10.2%;
+    --sidebar-accent-foreground: 0 0% 89.8%;
+    --sidebar-border: 0 0% 16%;
+    --sidebar-ring: 0 0% 75.3%;
+  }
+
+  .light {
+    --background: 220 20% 97%;
+    --foreground: 224 50% 10%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 224 50% 10%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 224 50% 10%;
+
+    --primary: 224 50% 10%;
+    --primary-foreground: 220 20% 97%;
+
+    --secondary: 218 22% 93%;
+    --secondary-foreground: 218 18% 38%;
+
+    --muted: 218 22% 93%;
+    --muted-foreground: 218 14% 45%;
+
+    --accent: 218 20% 89%;
+    --accent-foreground: 224 35% 16%;
+
+    --destructive: 0 72% 50%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 218 22% 86%;
+    --input: 218 22% 86%;
+    --ring: 224 50% 28%;
+
+    --silver: 218 14% 45%;
+    --silver-accent: 224 35% 22%;
+    --skill-green: 160 84% 28%;
+    --alert-red: 0 72% 48%;
+    --badge-gold: 38 92% 42%;
+    --court-blue: 217 91% 48%;
+
+    --surface-1: 220 24% 96%;
+    --surface-2: 218 22% 93%;
+    --surface-3: 218 20% 88%;
+
+    --sidebar-background: 220 24% 96%;
+    --sidebar-foreground: 218 14% 45%;
+    --sidebar-primary: 224 50% 10%;
+    --sidebar-primary-foreground: 220 20% 97%;
+    --sidebar-accent: 218 22% 93%;
+    --sidebar-accent-foreground: 224 35% 16%;
+    --sidebar-border: 218 22% 86%;
+    --sidebar-ring: 224 50% 28%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-family: 'General Sans', sans-serif;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Satoshi', sans-serif;
+  }
+
+  code, pre, .font-mono {
+    font-family: 'JetBrains Mono', monospace;
+  }
+}
+
+@layer utilities {
+  .glass {
+    @apply bg-card/40 backdrop-blur-xl border border-border/50;
+  }
+
+  .glass-light {
+    @apply bg-card/80 backdrop-blur-xl border border-border/30;
+  }
+
+  .light .glass {
+    @apply bg-card/70 backdrop-blur-xl border border-border/60 shadow-[0_1px_3px_hsl(222_47%_11%/0.04)];
+  }
+
+  .light .glass-light {
+    @apply bg-card/90 backdrop-blur-xl border border-border/40 shadow-[0_1px_2px_hsl(222_47%_11%/0.03)];
+  }
+
+  .text-silver {
+    color: hsl(var(--silver));
+  }
+
+  .text-silver-accent {
+    color: hsl(var(--silver-accent));
+  }
+
+  .text-skill-green {
+    color: hsl(var(--skill-green));
+  }
+
+  .text-badge-gold {
+    color: hsl(var(--badge-gold));
+  }
+
+  .text-court-blue {
+    color: hsl(var(--court-blue));
+  }
+
+  .bg-surface-1 {
+    background-color: hsl(var(--surface-1));
+  }
+
+  .bg-surface-2 {
+    background-color: hsl(var(--surface-2));
+  }
+
+  .bg-surface-3 {
+    background-color: hsl(var(--surface-3));
+  }
+
+  .border-silver {
+    border-color: hsl(var(--silver) / 0.2);
+  }
+
+  .card-3d {
+    perspective: 1000px;
+    transform-style: preserve-3d;
+  }
+
+  .card-3d-inner {
+    transition: transform 0.4s ease;
+    transform-style: preserve-3d;
+  }
+
+  .card-3d:hover .card-3d-inner {
+    transform: rotateY(6deg) rotateX(3deg);
+  }
+
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+/* Light mode enhancements */
+.light {
+  /* Cards get subtle elevation shadows */
+  & [class*="border-border"][class*="bg-card"] {
+    box-shadow: 0 1px 4px hsl(224 50% 10% / 0.06), 0 1px 2px hsl(224 50% 10% / 0.04);
+  }
+
+  & [class*="border-border"][class*="bg-card"]:hover {
+    box-shadow: 0 6px 16px hsl(224 50% 10% / 0.08), 0 2px 6px hsl(224 50% 10% / 0.05);
+  }
+
+  /* Refined input styling */
+  & input, & textarea, & select {
+    box-shadow: 0 1px 2px hsl(224 50% 10% / 0.05) inset;
+  }
+
+  /* Better badge/pill backgrounds */
+  & [class*="bg-surface-2"][class*="rounded-full"] {
+    box-shadow: 0 1px 2px hsl(224 50% 10% / 0.04);
+  }
+
+  /* Smoother radial gradients — reduce intensity in light */
+  & [style*="radial-gradient"] {
+    filter: saturate(0.85) contrast(1.01);
+  }
+
+  /* Improve text contrast on colored backgrounds */
+  & .text-skill-green { color: hsl(160 84% 24%); }
+  & .text-badge-gold { color: hsl(38 92% 36%); }
+  & .text-court-blue { color: hsl(217 91% 42%); }
+
+  /* Softer background tint for colored badges in light */
+  & [class*="bg-skill-green\\/5"] { background-color: hsl(160 84% 28% / 0.08); }
+  & [class*="bg-badge-gold\\/5"] { background-color: hsl(38 92% 42% / 0.08); }
+  & [class*="bg-court-blue\\/5"] { background-color: hsl(217 91% 48% / 0.08); }
+  & [class*="bg-skill-green\\/10"] { background-color: hsl(160 84% 28% / 0.12); }
+  & [class*="bg-badge-gold\\/10"] { background-color: hsl(38 92% 42% / 0.12); }
+  & [class*="bg-court-blue\\/10"] { background-color: hsl(217 91% 48% / 0.12); }
+
+  /* Better navbar glass in light */
+  & .glass {
+    background-color: hsl(0 0% 100% / 0.82);
+    box-shadow: 0 1px 4px hsl(224 50% 10% / 0.06);
+  }
+}
+
+/* ──── Global mobile responsiveness fixes ──── */
+@media (max-width: 640px) {
+  /* Tighter page padding on small screens */
+  section > div[class*="max-w-"] {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+  /* Prevent text overflow */
+  h1 { font-size: clamp(2rem, 8vw, 3.5rem) !important; line-height: 1.1 !important; }
+  h2 { font-size: clamp(1.5rem, 6vw, 2.5rem) !important; line-height: 1.15 !important; }
+
+  /* Cards breathe on mobile */
+  [class*="rounded-2xl"][class*="border-border"] {
+    border-radius: 1rem;
+  }
+
+  /* Grids collapse cleanly */
+  .grid[class*="lg:grid-cols"] {
+    gap: 0.75rem;
+  }
+
+  /* Horizontal scroll containers get momentum */
+  .overflow-x-auto, .overflow-auto {
+    -webkit-overflow-scrolling: touch;
+  }
+
+  /* Font mono sizing */
+  .font-mono {
+    font-size: 0.8125rem;
+  }
+
+  /* Spline iframes scale down on mobile */
+  iframe[title*="3D"], iframe[title*="Spline"], iframe[title*="Scene"] {
+    min-height: 280px;
+    max-height: 380px;
+  }
+}
+
+/* Tablet tweaks */
+@media (min-width: 641px) and (max-width: 1024px) {
+  h1 { font-size: clamp(2.5rem, 6vw, 4rem) !important; }
+}
+
+/* Smooth transitions for theme switching */
+body, .bg-background, .bg-card, .bg-surface-1, .bg-surface-2, .bg-surface-3 {
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.border-border {
+  transition: border-color 0.3s ease;
+}
